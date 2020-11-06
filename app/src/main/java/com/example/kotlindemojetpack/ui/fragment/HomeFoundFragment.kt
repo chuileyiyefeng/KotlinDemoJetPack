@@ -2,7 +2,9 @@ package com.example.kotlindemojetpack.ui.fragment
 
 import com.example.kotlindemojetpack.R
 import com.example.kotlindemojetpack.base.BaseFragment
+import com.example.kotlindemojetpack.extension.setOnClickListener
 import com.example.kotlindemojetpack.ui.viewmodel.HomeFoundFragmentVm
+import kotlinx.android.synthetic.main.fragment_home_found.*
 
 /**
  *  create by pan yi on 2020/11/3
@@ -10,7 +12,7 @@ import com.example.kotlindemojetpack.ui.viewmodel.HomeFoundFragmentVm
  */
 class HomeFoundFragment : BaseFragment() {
     private val viewModel by lazy {
-        getViewModel(HomeFoundFragmentVm::class.java) as HomeFoundFragmentVm?
+        getViewModel(HomeFoundFragmentVm::class.java) as HomeFoundFragmentVm
     }
 
 
@@ -23,15 +25,15 @@ class HomeFoundFragment : BaseFragment() {
     }
 
     override fun initObserver() {
-        viewModel?.listData?.observe(this, {
-            loadFail(it)
+        viewModel.listData.observe(this, {
+
         })
     }
 
 
     override fun startLoading() {
         super.startLoading()
-        viewModel?.getData()
+        viewModel.getData()
     }
 
     override fun loadSuccess() {

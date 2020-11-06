@@ -17,4 +17,5 @@
     <include layout="@layout/view_loading" />
 
     <include layout="@layout/view_load_view_stub_holder" />
+
 </FrameLayout>

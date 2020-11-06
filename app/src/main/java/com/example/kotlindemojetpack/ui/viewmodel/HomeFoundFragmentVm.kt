@@ -2,8 +2,10 @@ package com.example.kotlindemojetpack.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.kotlindemojetpack.api.Repository
 import com.example.kotlindemojetpack.base.BaseViewModel
-import kotlinx.coroutines.delay
+import com.example.kotlindemojetpack.reponse.DiscoveryBean
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -11,12 +13,12 @@ import kotlinx.coroutines.launch
  *  desc : 主页发现
  */
 class HomeFoundFragmentVm : BaseViewModel() {
-    val listData = MutableLiveData<String>()
+    val listData = MutableLiveData<DiscoveryBean>()
 
     fun getData() {
         viewModelScope.launch {
-            delay(1000)
-            listData.value = "哈哈"
+            val discovery = Repository.getDiscovery()
         }
     }
+
 }
