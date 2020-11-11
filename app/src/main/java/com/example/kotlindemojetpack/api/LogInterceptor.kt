@@ -15,8 +15,8 @@ class LogInterceptor : Interceptor {
         val response = chain.proceed(chain.request())
         val content = response.body()?.string()
         val request = chain.request()
-        logE("LogInterceptor", "request Url ${request.url()} ")
-        logE("LogInterceptor", "  response body:$content")
+        logE("request Url ${request.url()} ")
+        logE("  response body:$content")
         return chain.proceed(builder.build())
     }
 }

@@ -4,13 +4,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.kotlindemojetpack.base.BaseFragment
+import com.example.kotlindemojetpack.base.BaseListFragment
 
 /**
  *  create by pan yi on 2020/11/3
  *  desc :
  */
-class ViewPagerAdapter(fragmentManager: FragmentManager, var fragmentList: List<BaseFragment>) :
+class ViewPagerAdapter(fragmentManager: FragmentManager, var fragmentList: List<Fragment>) :
     FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
         return fragmentList[position]

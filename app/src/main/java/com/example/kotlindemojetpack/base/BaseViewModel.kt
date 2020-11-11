@@ -1,5 +1,6 @@
 package com.example.kotlindemojetpack.base
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
@@ -7,4 +8,5 @@ import androidx.lifecycle.ViewModel
  *  desc :
  */
 open class BaseViewModel :ViewModel() {
+    val errorMessageData = MutableLiveData<String>()
 }

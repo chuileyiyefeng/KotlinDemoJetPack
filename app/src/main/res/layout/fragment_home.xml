@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab"
@@ -14,11 +15,13 @@
         android:layout_marginEnd="50dp"
         app:tabBackground="@color/transparent"
         app:tabIndicatorColor="@color/black"
+        app:tabIndicatorFullWidth="false"
         app:tabRippleColor="@color/transparent"
         app:tabSelectedTextColor="@color/black"
-        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/grayDark" />
+
+    <include layout="@layout/line1" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

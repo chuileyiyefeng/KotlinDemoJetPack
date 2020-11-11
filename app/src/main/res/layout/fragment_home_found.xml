@@ -4,18 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
-    <include layout="@layout/view_loading" />
-
-    <include layout="@layout/view_load_view_stub_holder" />
+    <include layout="@layout/view_list" />
 
 </FrameLayout>

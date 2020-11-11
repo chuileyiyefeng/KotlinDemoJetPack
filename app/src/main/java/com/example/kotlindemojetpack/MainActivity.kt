@@ -4,8 +4,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.kotlindemojetpack.base.BaseActivity
+import com.example.kotlindemojetpack.base.BaseListFragment
 import com.example.kotlindemojetpack.extension.setOnClickListener
 import com.example.kotlindemojetpack.ui.fragment.HomeFragment
 import com.example.kotlindemojetpack.ui.fragment.MineFragment
@@ -46,7 +48,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     }
 
     private fun changePage(view: View, isSelect: Boolean = true) {
-        if (view == lastView&&isSelect) {
+        if (view == lastView && isSelect) {
             return
         }
         val parent = view as ViewGroup
@@ -64,66 +66,37 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 }, null
             )
         )
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         imageView.setImageResource(
             when (view) {
                 home -> {
+                    showFragment(isSelect,homeFragment)
                     if (isSelect) {
-                        if (!homeFragment.isAdded) {
-                            ft.add(R.id.fl_fragment, homeFragment)
-                        } else {
-                            ft.show(homeFragment)
-                        }
                         R.mipmap.btn_home_page_selected
                     } else {
-                        if (homeFragment.isAdded) {
-                            ft.hide(homeFragment)
-                        }
                         R.mipmap.btn_home_page_normal
                     }
                 }
                 society -> {
+                    showFragment(isSelect,societyFragment)
                     if (isSelect) {
-                        if (!societyFragment.isAdded) {
-                            ft.add(R.id.fl_fragment, societyFragment)
-                        } else {
-                            ft.show(societyFragment)
-                        }
                         R.mipmap.btn_community_selected
                     } else {
-                        if (societyFragment.isAdded) {
-                            ft.hide(societyFragment)
-                        }
                         R.mipmap.btn_community_normal
                     }
                 }
                 notify -> {
+                    showFragment(isSelect,notifyFragment)
                     if (isSelect) {
-                        if (!notifyFragment.isAdded) {
-                            ft.add(R.id.fl_fragment, notifyFragment)
-                        } else {
-                            ft.show(notifyFragment)
-                        }
                         R.mipmap.btn_notification_selected
                     } else {
-                        if (notifyFragment.isAdded) {
-                            ft.hide(notifyFragment)
-                        }
                         R.mipmap.btn_notification_normal
                     }
                 }
                 mine -> {
+                    showFragment(isSelect,mineFragment)
                     if (isSelect) {
-                        if (!mineFragment.isAdded) {
-                            ft.add(R.id.fl_fragment, mineFragment)
-                        } else {
-                            ft.show(mineFragment)
-                        }
                         R.mipmap.btn_mine_selected
                     } else {
-                        if (mineFragment.isAdded) {
-                            ft.hide(mineFragment)
-                        }
                         R.mipmap.btn_mine_normal
                     }
                 }
@@ -132,7 +105,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 }
             }
         )
-        ft.commit()
         lastView?.let {
             if (isSelect) {
                 changePage(it, false)
@@ -141,5 +113,21 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         if (isSelect) {
             lastView = view
         }
+    }
+
+    private fun showFragment(isSelect: Boolean, fragment: Fragment) {
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        if (isSelect) {
+            if (!fragment.isAdded) {
+                ft.add(R.id.fl_fragment, fragment)
+            } else {
+                ft.show(fragment)
+            }
+        } else {
+            if (fragment.isAdded) {
+                ft.hide(fragment)
+            }
+        }
+        ft.commit()
     }
 }

@@ -11,33 +11,39 @@ import java.util.*
  *  create by pan yi on 2020/11/3
  *  desc :
  */
-abstract class BaseAdapter<T>(protected var context: Context) :
+abstract class BaseAdapter<T>(private val context: Context, val needItemClick: Boolean = true) :
     RecyclerView.Adapter<BaseViewHolder>(), View.OnClickListener {
     private var list: MutableList<T> = ArrayList()
     protected abstract fun bindLayout(): Int
+    var currentBindPosition = 0
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): BaseViewHolder {
+        currentBindPosition = i
         return BaseViewHolder(LayoutInflater.from(context).inflate(bindLayout(), viewGroup, false))
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         bindHolder(holder, position)
-        holder.itemView.tag = position
-        holder.itemView.setOnClickListener(this)
+        if (needItemClick) {
+            holder.itemView.tag = position
+            holder.itemView.setOnClickListener(this)
+        }
     }
 
     protected abstract fun bindHolder(holder: BaseViewHolder, position: Int)
     override fun getItemCount(): Int {
-        return  list.size
+        return list.size
     }
 
     fun addItem(t: T) {
         list.add(t)
         notifyItemInserted(list.size)
     }
+
     fun addFirstItem(t: T) {
-        list.add(0,t)
+        list.add(0, t)
         notifyItemInserted(list.size)
     }
+
     fun addItem(collections: Collection<T>?) {
         list.addAll(collections!!)
         notifyDataSetChanged()

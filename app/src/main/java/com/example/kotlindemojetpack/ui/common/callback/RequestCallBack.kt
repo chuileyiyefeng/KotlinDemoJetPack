@@ -6,6 +6,8 @@ package com.example.kotlindemojetpack.ui.common.callback
  */
 interface RequestCallBack {
     fun startLoading()
+    fun loadMore()
+    fun refresh()
     fun loadSuccess()
-    fun loadFail(msg:String?)
+    fun loadFail(msg: String?)
 }

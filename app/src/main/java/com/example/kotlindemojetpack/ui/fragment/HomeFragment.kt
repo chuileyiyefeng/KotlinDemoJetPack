@@ -1,8 +1,9 @@
 package com.example.kotlindemojetpack.ui.fragment
 
+import androidx.fragment.app.Fragment
 import com.example.kotlindemojetpack.R
 import com.example.kotlindemojetpack.base.BaseFragment
-import com.example.kotlindemojetpack.base.BaseViewModel
+import com.example.kotlindemojetpack.base.BaseListFragment
 import com.example.kotlindemojetpack.ui.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -11,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  *  desc : 首页
  */
 class HomeFragment : BaseFragment() {
-    private val fragmentList = ArrayList<BaseFragment>()
+    private val fragmentList = ArrayList<Fragment>()
     override fun bindLayout(): Int {
         return R.layout.fragment_home
     }
