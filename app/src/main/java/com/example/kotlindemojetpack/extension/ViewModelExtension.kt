@@ -2,7 +2,7 @@ package com.example.kotlindemojetpack.extension
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kotlindemojetpack.utils.logE
+import com.example.kotlindemojetpack.utils.llogE
 import kotlinx.coroutines.*
 
 /**
@@ -16,7 +16,7 @@ fun ViewModel.requestScope(
         CoroutineExceptionHandler { _, throwable ->
             run {
                 val baseErr = ExceptionUtil.catchException(throwable)
-                logE("执行异常捕获->${baseErr.msg} ${baseErr.result}")
+                llogE("执行异常捕获->${baseErr.msg} ${baseErr.result}")
                 onError(baseErr.msg)
             }
         }

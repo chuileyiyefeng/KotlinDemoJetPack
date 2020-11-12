@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ViewStub
-        android:id="@+id/view_load_stub"
+        android:id="@+id/view_load_empty_stub"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout="@layout/view_load_empty" />

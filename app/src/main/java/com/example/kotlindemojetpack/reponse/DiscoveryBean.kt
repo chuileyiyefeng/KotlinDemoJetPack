@@ -7,7 +7,7 @@ package com.example.kotlindemojetpack.reponse
 data class DiscoveryBean(
     val adExist: Boolean,
     val count: Int,
-    val itemList: List<Item>,
+    val itemList: ArrayList<Item>,
     val nextPageUrl: String?,
     val total: Int
 )

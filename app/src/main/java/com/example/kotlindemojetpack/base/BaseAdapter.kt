@@ -13,11 +13,11 @@ import java.util.*
  */
 abstract class BaseAdapter<T>(private val context: Context, val needItemClick: Boolean = true) :
     RecyclerView.Adapter<BaseViewHolder>(), View.OnClickListener {
-    private var list: MutableList<T> = ArrayList()
+    private var list= ArrayList<T>()
     protected abstract fun bindLayout(): Int
-    var currentBindPosition = 0
+    var currentType = 0
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): BaseViewHolder {
-        currentBindPosition = i
+        currentType = i
         return BaseViewHolder(LayoutInflater.from(context).inflate(bindLayout(), viewGroup, false))
     }
 

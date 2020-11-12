@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_load_error"
+    android:id="@+id/view_load_empty"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,7 +11,7 @@
         android:id="@+id/iv_load_empty_status"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/load_error"
+        android:src="@mipmap/empty_data"
         app:layout_constraintBottom_toTopOf="@id/tv_load_empty_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -15,9 +15,8 @@ class HomeFoundFragment : BaseListFragment() {
     }
     private var adapter: DiscoveryAdapter? = null
 
-
     override fun initView() {
-        startLoading()
+        super.initView()
         context?.let {
             adapter = DiscoveryAdapter(it)
             setAdapter(adapter)
@@ -30,10 +29,10 @@ class HomeFoundFragment : BaseListFragment() {
     override fun initObserver() {
         super.initObserver()
         viewModel.listData.observe(this, {
-            loadSuccess()
-            adapter?.run {
-                clearAllItem()
-                addItem(it.itemList)
+            loadData {
+                adapter?.run {
+                    addItem(it.itemList)
+                }
             }
         })
     }

@@ -7,7 +7,7 @@ import android.util.Log
  *  desc : log工具类
  */
 private const val isLog = true
-fun logE(msg: String, tag: String = "TAG") {
+fun llogE(msg: String, tag: String = "TAG") {
     if (isLog) {
         Log.e(tag, msg)
     }

@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlindemojetpack.MyApplication
 import com.example.kotlindemojetpack.R
-import com.example.kotlindemojetpack.reponse.Item
 import com.example.kotlindemojetpack.ui.common.callback.RequestCallBack
 import kotlinx.android.synthetic.main.view_list.*
 
@@ -22,7 +21,8 @@ import kotlinx.android.synthetic.main.view_list.*
  *  create by pan yi on 2020/11/3
  *  desc : 基类 列表 fragment
  */
-abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver {
+open class BaseListFragment : Fragment(), RequestCallBack,
+    LifecycleObserver {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +40,7 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
     private var isInit = false
 
     private var loadingErrorView: View? = null
+    private var loadingEmptyView: View? = null
     private var loadingProgressBar: ProgressBar? = null
     private var rootView: View? = null
     private var viewModel: BaseViewModel? = null
@@ -70,7 +71,9 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
         }
     }
 
-    abstract fun initView()
+    open fun initView() {
+    }
+
     open fun initObserver() {
         startLoading()
         viewModel?.errorMessageData?.observe(this, {
@@ -83,14 +86,17 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
 
 
     override fun startLoading() {
-        isRefresh = true
         if (isEmptyReConnect) {
             loadingProgressBar?.visibility = View.VISIBLE
         }
         loadingErrorView?.visibility = View.GONE
+        loadingEmptyView?.visibility = View.GONE
     }
 
     override fun loadSuccess() {
+        if (isRefresh) {
+            adapter?.clearAllItem()
+        }
         refreshLayout.finishLoadMore()
         refreshLayout.finishRefresh()
         loadingProgressBar?.visibility = View.GONE
@@ -98,17 +104,27 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
         isEmptyReConnect = false
     }
 
-    // item为0并且加载错误 是否点击重连
-    var isEmptyReConnect = false
+
+    open fun loadData(
+        emptyMessage: String = getString(R.string.load_empty_default),
+        block: () -> Unit
+    ) {
+        loadSuccess()
+        block()
+        val itemCount = adapter?.itemCount ?: 0
+        if (itemCount == 0) {
+            isEmptyReConnect = true
+            showEmpty(emptyMessage)
+        }
+    }
+
+    // item为0  是否点击重连显示loading状态
+    private var isEmptyReConnect = false
 
     override fun loadFail(msg: String?) {
         refreshLayout.finishLoadMore()
         refreshLayout.finishRefresh()
         loadingProgressBar?.visibility = View.GONE
-
-        showErrorMessage(msg) {
-            startLoading()
-        }
         // 如果item数量为0的时候显示错误的控件
         val itemCount = adapter?.itemCount ?: 0
         if (itemCount == 0) {
@@ -117,18 +133,20 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
                 loadingErrorView?.visibility = View.VISIBLE
             } else {
                 rootView?.let {
-                    val viewStub = it.findViewById(R.id.view_load_stub) as ViewStub
+                    val viewStub = it.findViewById(R.id.view_load_fail_stub) as ViewStub
                     loadingErrorView = viewStub.inflate()
                 }
             }
-        }else{
+        } else {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        }
+        showErrorMessage(msg) {
+            startLoading()
         }
     }
 
 
     private fun showErrorMessage(msg: String?, block: View.() -> Unit) {
-
         loadingErrorView?.let { loadError ->
             val textView = loadError.findViewById<TextView>(R.id.tv_load_error_content)
             textView.text = msg
@@ -139,8 +157,19 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
         }
     }
 
+    private fun showEmptyMessage(msg: String?, block: View.() -> Unit) {
+        loadingEmptyView?.let { loadError ->
+            val textView = loadError.findViewById<TextView>(R.id.tv_load_empty_content)
+            textView.text = msg
+            val viewError = loadError.findViewById<View>(R.id.view_load_empty)
+            viewError.setOnClickListener {
+                it.block()
+            }
+        }
+    }
+
     override fun refresh() {
-        isRefresh=true
+        isRefresh = true
     }
 
     override fun loadMore() {
@@ -150,8 +179,25 @@ abstract class BaseListFragment : Fragment(), RequestCallBack, LifecycleObserver
     private var adapter: BaseAdapter<*>? = null
 
     open fun setAdapter(adapter: BaseAdapter<*>?) {
-        rv.layoutManager = LinearLayoutManager(context)
-        rv.adapter = adapter
+        rv_banner.setHasFixedSize(true)
+        rv_banner.layoutManager = LinearLayoutManager(context)
+        rv_banner.adapter = adapter
         this.adapter = adapter
     }
+
+
+    private fun showEmpty(emptyMessage: String) {
+        if (loadingEmptyView == null) {
+            rootView?.let {
+                val viewStub = it.findViewById(R.id.view_load_empty_stub) as ViewStub
+                loadingEmptyView = viewStub.inflate()
+            }
+        } else {
+            loadingEmptyView?.visibility = View.VISIBLE
+        }
+        showEmptyMessage(emptyMessage) {
+            startLoading()
+        }
+    }
+
 }
