@@ -29,12 +29,15 @@ open class BaseListFragment : Fragment(), RequestCallBack,
         savedInstanceState: Bundle?
     ): View? {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_home_found, container, false)
+            rootView = inflater.inflate(bindLayout(), container, false)
             loadingProgressBar = rootView?.findViewById(R.id.progress)
         }
         return rootView
     }
 
+    open fun bindLayout(): Int {
+        return R.layout.fragment_base_list
+    }
 
     private var isFirstLoad = true
     private var isInit = false
@@ -79,6 +82,7 @@ open class BaseListFragment : Fragment(), RequestCallBack,
         viewModel?.errorMessageData?.observe(this, {
             loadFail(it)
         })
+
     }
 
     open fun lazyLoad() {}
@@ -172,6 +176,11 @@ open class BaseListFragment : Fragment(), RequestCallBack,
         isRefresh = true
     }
 
+    open fun autoRefresh() {
+//        refreshLayout.autoRefresh()
+//        refresh()
+    }
+
     override fun loadMore() {
 
     }
@@ -179,9 +188,9 @@ open class BaseListFragment : Fragment(), RequestCallBack,
     private var adapter: BaseAdapter<*>? = null
 
     open fun setAdapter(adapter: BaseAdapter<*>?) {
-        rv_banner.setHasFixedSize(true)
-        rv_banner.layoutManager = LinearLayoutManager(context)
-        rv_banner.adapter = adapter
+        rv_list.setHasFixedSize(true)
+        rv_list.layoutManager = LinearLayoutManager(context)
+        rv_list.adapter = adapter
         this.adapter = adapter
     }
 

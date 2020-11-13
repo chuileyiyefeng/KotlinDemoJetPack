@@ -8,7 +8,7 @@ import com.example.kotlindemojetpack.base.BaseListFragment
  *  create by pan yi on 2020/11/4
  *  desc :  主页日报
  */
-class HomeDailyFragment : BaseFragment() {
+class HomeDailyFragment : BaseListFragment() {
     override fun bindLayout(): Int {
         return R.layout.fragment_home_daily
     }

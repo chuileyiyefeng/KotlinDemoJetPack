@@ -7,12 +7,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.kotlindemojetpack.base.BaseActivity
-import com.example.kotlindemojetpack.base.BaseListFragment
 import com.example.kotlindemojetpack.extension.setOnClickListener
 import com.example.kotlindemojetpack.ui.fragment.HomeFragment
 import com.example.kotlindemojetpack.ui.fragment.MineFragment
 import com.example.kotlindemojetpack.ui.fragment.NotifyFragment
 import com.example.kotlindemojetpack.ui.fragment.SocietyFragment
+import com.example.kotlindemojetpack.utils.LiveBus
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
@@ -41,8 +41,29 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
                 }
                 else -> {
+                    // 刷新当前页
+                    if (lastView == this) {
+                        refreshData(this)
+                    }
                     changePage(this)
                 }
+            }
+        }
+    }
+
+    private fun refreshData(view: View) {
+        when (view) {
+            home -> {
+                LiveBus.refreshData.postValue(HomeFragment::class.java)
+            }
+            society -> {
+                LiveBus.refreshData.postValue(SocietyFragment::class.java)
+            }
+            notify -> {
+                LiveBus.refreshData.postValue(NotifyFragment::class.java)
+            }
+            mine -> {
+                LiveBus.refreshData.postValue(MineFragment::class.java)
             }
         }
     }
@@ -69,7 +90,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         imageView.setImageResource(
             when (view) {
                 home -> {
-                    showFragment(isSelect,homeFragment)
+                    showFragment(isSelect, homeFragment)
                     if (isSelect) {
                         R.mipmap.btn_home_page_selected
                     } else {
@@ -77,7 +98,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                     }
                 }
                 society -> {
-                    showFragment(isSelect,societyFragment)
+                    showFragment(isSelect, societyFragment)
                     if (isSelect) {
                         R.mipmap.btn_community_selected
                     } else {
@@ -85,7 +106,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                     }
                 }
                 notify -> {
-                    showFragment(isSelect,notifyFragment)
+                    showFragment(isSelect, notifyFragment)
                     if (isSelect) {
                         R.mipmap.btn_notification_selected
                     } else {
@@ -93,7 +114,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                     }
                 }
                 mine -> {
-                    showFragment(isSelect,mineFragment)
+                    showFragment(isSelect, mineFragment)
                     if (isSelect) {
                         R.mipmap.btn_mine_selected
                     } else {

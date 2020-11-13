@@ -1,10 +1,11 @@
 package com.example.kotlindemojetpack.extension
 
+import android.content.Context
 import android.view.View
 
 /**
  *  create by pan yi on 2020/11/3
- *  desc : View的全局方法
+ *  desc : View相关的全局方法
  */
 
 fun setOnClickListener(vararg views: View, block: View.() -> Unit) {
@@ -13,4 +14,7 @@ fun setOnClickListener(vararg views: View, block: View.() -> Unit) {
         it.setOnClickListener(onClickListener)
     }
 }
-
+ fun View.dip2px(value: Int): Int {
+    val scale: Float = resources.displayMetrics.density
+    return (value * scale + 0.5f).toInt()
+}

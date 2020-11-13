@@ -9,14 +9,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_banner"
+            android:id="@+id/rv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <include layout="@layout/view_loading" />
-
     <include layout="@layout/view_load_view_stub_fail_holder" />
     <include layout="@layout/view_load_view_stub_empty_holder" />
 </FrameLayout>

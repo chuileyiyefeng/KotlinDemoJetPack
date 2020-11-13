@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlindemojetpack.R
 import com.example.kotlindemojetpack.base.BaseAdapter
 import com.example.kotlindemojetpack.base.BaseViewHolder
-import com.example.kotlindemojetpack.extension.loadImageUrl
+import com.example.kotlindemojetpack.extension.loadUrl
 import com.example.kotlindemojetpack.reponse.Item
 import com.example.kotlindemojetpack.view.layoutmanager.BannerLayoutManager
 
@@ -20,7 +20,6 @@ import com.example.kotlindemojetpack.view.layoutmanager.BannerLayoutManager
  */
 class DiscoveryAdapter(private val context: Context) :
     BaseAdapter<Item>(context, needItemClick = false) {
-
 
     override fun getItemViewType(position: Int): Int {
         val bean = getItem(position)
@@ -71,21 +70,21 @@ class DiscoveryAdapter(private val context: Context) :
         val bean = getItem(position)
         when (getItemViewType(position)) {
             0 -> {
-                val rv = holder.getView<RecyclerView>(R.id.rv_banner)
-                val adapter = BannerAdapter(context)
-                rv.layoutManager = BannerLayoutManager(context)
-                rv.adapter = adapter
-                adapter.addItem(bean.data.itemList)
+                val rv = holder.getView<RecyclerView>(R.id.rv_list)
                 if (!attachRvPosition.contains(position)) {
                     LinearSnapHelper().attachToRecyclerView(rv)
                     attachRvPosition.add(position)
                 }
+                val adapter = BannerAdapter(context)
+                rv.layoutManager = BannerLayoutManager(context)
+                rv.adapter = adapter
+                adapter.addItem(bean.data.itemList)
             }
             1 -> {
                 val iv = holder.getView(R.id.iv_category) as ImageView
                 val tvTitle = holder.getView(R.id.tv_title) as TextView
                 val tvContent = holder.getView(R.id.tv_content) as TextView
-                iv.loadImageUrl(bean.data.icon)
+                iv.loadUrl(bean.data.icon)
                 tvTitle.text = bean.data.title
                 tvContent.text = bean.data.description
             }

@@ -1,6 +1,6 @@
 package com.example.kotlindemojetpack.api
 
-import com.example.kotlindemojetpack.utils.llogE
+import com.example.kotlindemojetpack.utils.llogD
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -14,8 +14,8 @@ class LogInterceptor : Interceptor {
         val response = chain.proceed(chain.request())
         val content = response.body()?.string()
         val request = chain.request()
-        llogE("request Url ${request.url()} ")
-        llogE("  response body:$content")
+        llogD("request Url ${request.url()} ")
+        llogD("  response body:$content")
         return chain.proceed(builder.build())
     }
 }

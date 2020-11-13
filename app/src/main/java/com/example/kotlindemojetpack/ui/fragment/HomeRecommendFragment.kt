@@ -8,7 +8,7 @@ import com.example.kotlindemojetpack.base.BaseListFragment
  *  create by pan yi on 2020/11/4
  *  desc :  主页推荐
  */
-class HomeRecommendFragment : BaseFragment() {
+class HomeRecommendFragment : BaseListFragment() {
     override fun bindLayout(): Int {
         return R.layout.fragment_home_recommend
     }

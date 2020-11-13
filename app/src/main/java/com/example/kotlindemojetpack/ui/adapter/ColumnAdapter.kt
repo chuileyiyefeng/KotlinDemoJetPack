@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.example.kotlindemojetpack.R
 import com.example.kotlindemojetpack.base.BaseAdapter
 import com.example.kotlindemojetpack.base.BaseViewHolder
-import com.example.kotlindemojetpack.extension.loadImageUrl
+import com.example.kotlindemojetpack.extension.loadUrl
 import com.example.kotlindemojetpack.reponse.ItemX
 
 /**
@@ -22,7 +22,7 @@ class ColumnAdapter(context: Context) : BaseAdapter<ItemX>(context) {
         val bean = getItem(position)
         val iv = holder.getView(R.id.iv_column) as ImageView
         val tv = holder.getView(R.id.tv_column_title) as TextView
-        iv.loadImageUrl(bean.data.image)
+        iv.loadUrl(bean.data.image)
         tv.text = bean.data.title
     }
 }

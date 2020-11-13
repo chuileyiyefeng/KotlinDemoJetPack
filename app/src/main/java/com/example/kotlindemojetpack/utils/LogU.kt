@@ -12,3 +12,8 @@ fun llogE(msg: String, tag: String = "TAG") {
         Log.e(tag, msg)
     }
 }
+fun llogD(msg: String, tag: String = "TAG") {
+    if (isLog) {
+        Log.d(tag, msg)
+    }
+}

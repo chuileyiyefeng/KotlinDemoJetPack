@@ -1,6 +1,5 @@
 package com.example.kotlindemojetpack.api
 
-import com.example.kotlindemojetpack.base.convert
 import com.example.kotlindemojetpack.reponse.DiscoveryBean
 
 /**
@@ -10,7 +9,11 @@ import com.example.kotlindemojetpack.reponse.DiscoveryBean
 class Repository {
     companion object {
         suspend fun getDiscovery(): DiscoveryBean {
-            return  NetConfig.apiService.getDiscovery()
+            return NetConfig.apiService.getDiscovery()
+        }
+
+        suspend fun getHotSearch(): List<String> {
+            return NetConfig.apiService.getHotSearch()
         }
     }
 }
